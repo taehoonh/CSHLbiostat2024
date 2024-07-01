@@ -1,0 +1,60 @@
+---
+title: ""
+---
+
+<br><br>
+
+<p align="center">
+<img src="images/cshl_bstat_course_logo.png" alt="logo" style="width:85%; border:0.5px solid; margin-right: 20px" align="center">
+</p>
+<br>
+
+
+This course is designed to provide an introduction to biostatistics, the application of statistical methods to analyze and interpret data in the field of biology and health sciences. The course will cover the basic principles of probability theory, statistical inference, and hypothesis testing. Participants will learn how to use statistical software, including Prism Graphpad, to analyze datasets and draw conclusions from their findings.
+
+For registration information, please contact [Jessica Peluso](mailto:peluso@cshl.edu).
+
+<!-- please refer to the [Biostatistics Course Flyer](images/Biostatistics Course Flyer.pdf) for more details. -->
+
+<br>
+
+**COURSE OBJECTIVES:**
+
+Understand the basic principles of probability theory, statistical inference, and hypothesis testing.
+Understand how to use Prism Graphpad to analyze datasets and draw conclusions from their findings.
+Learn how to use various statistical tests to analyze and interpret data in the field of biology and medical sciences.
+
+Gain an understanding of correlation and regression analysis.
+Prepare participants for more advanced topics in biostatistics.
+
+<br>
+
+**INSTRUCTORS:**
+
+* Justin B. Kinney, PhD ([jkinney@cshl.edu](mailto:jkinney@cshl.edu))
+* Taehoon Ha, MS ([ha@cshl.edu](mailto:ha@cshl.edu))
+
+<br>
+
+**PREREQUISITES:**
+
+There are no statistical prerequisites for attending this course. Participants must
+have access to a computer and install Prism Graphpad software before attending the course. Please contact [Jessica Peluso](mailto:peluso@cshl.edu) prior to purchasing a license to see if you are eligible for free access to Graphpad!
+
+<br>
+
+**DATE/TIME/LOCATION:**
+
+| Date               | Time            | Location                       |
+|--------------------|-----------------|--------------------------------|
+| July 8, 2024 (Monday)    | 10AM - 12PM     | Hawkins                        |
+| July 9, 2024 (Tuesday)   | 10AM - 12PM     | Hawkins                        |
+| July 10, 2024 (Wednesday)| 10AM - 12PM     | Hawkins                        |
+| July 11, 2024 (Thursday) | 10AM - 12PM     | Hawkins                        |
+| July 12, 2024 (Friday)   | 2PM - 4PM       | Wendt Conference Room #5513    |
+
+
+
+
+
+<br>
