@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Lecture5 Activity2: Survival Analysis &amp; Logistic Regression</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Biostatistics Course 2024</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="schedule.html">Schedule</a>
+</li>
+<li>
+  <a href="communication.html">Communication</a>
+</li>
+<li>
+  <a href="https://github.com/taehoonh/CSHLbiostat2023">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Lecture5 Activity2: Survival Analysis &amp;
+Logistic Regression</h1>
+
+</div>
+
+
+<p><br></p>
+<div id="question-1-survival-analysis" class="section level3">
+<h3>Question 1: Survival Analysis</h3>
+<p>The Veterans’ Administration Lung Cancer study is a randomized trial
+comparing two treatment regimens for lung cancer. The dataset contains
+information on treatment type (standard vs. test), survival time, and
+censoring status. This dataset is ideal for conducting a survival
+analysis to explore the impact of the treatments on survival outcomes.
+Please perform a survival analysis by using the variables “trt” and
+“time” from the dataset, and then explore the relationship between “trt”
+and “time” to understand how the treatments affect survival rates.
+Please interpret your survival analysis result.</p>
+<ul>
+<li>Source: The Statistical Analysis of Failure Time Data by D.
+Kalbfleisch and RL Prentice (1980).</li>
+</ul>
+<p>You can download the dataset <a
+href="files/lec5/lungcancer.pzfx">HERE</a>.</p>
+<p><br></p>
+<details>
+<summary>
+<strong>Answer to Question 1:</strong>
+</summary>
+<p><br></p>
+<p><img src="files/lec5/lungcancer.png" alt="Veteran's lung cancer survival analysis" style="width: 80%;"></p>
+<p><br></p>
+<p>Based on the survival analysis, there is no significant difference in
+survival between the standard and test treatments, but the median
+survival time and hazard ratios suggest a potential benefit of the
+standard treatment in terms of longer survival. However, these
+observations are not statistically significant, so further investigation
+may be needed.</p>
+<p><br></p>
+<p>In addition to the interpretation, we can also check the following
+information according to the Prism Graphpad analysis result:</p>
+<ul>
+<li><p>The log-rank and Gehan-Breslow-Wilcoxon tests both show
+non-significant p-values (p &gt; 0.05), indicating that there is no
+statistically significant difference between the survival curves of the
+standard and test treatments.</p></li>
+<li><p>The median survival time for the standard treatment is
+approximately 103.0 units, while for the test treatment, it is
+approximately 52.50 units. The ratio of median survival between the two
+treatments is 1.962, with a 95% confidence interval of 1.387 to 2.774.
+This suggests that the standard treatment shows longer median survival
+compared to the test treatment.</p></li>
+<li><p>The hazard ratios (both Mantel-Haenszel and log-rank methods)
+also indicate that the risk of an event (e.g., death) for the standard
+treatment is slightly lower than the test treatment. However, the
+confidence intervals for these hazard ratios include 1, indicating that
+the difference is not statistically significant.</p></li>
+</ul>
+</details>
+<p><br><br></p>
+</div>
+<div id="question-2-logistic-regression" class="section level3">
+<h3>Question 2: Logistic Regression</h3>
+<p>You will perform a multiple logistic regression analysis using Prism
+GraphPad to examine the factors influencing graduate school
+admissions.</p>
+<p>You can download the data <a
+href="files/lec5/gradschool.pzfx">HERE</a>.</p>
+<p>The dataset contains applicants’ GRE scores, GPA, and undergraduate
+institute rank, with an ‘admit’ variable indicating admission
+status.</p>
+<ul>
+<li><code>admit</code>: 1 = Yes, 0 = No</li>
+<li><code>gre</code>: GRE score (200-800)</li>
+<li><code>gpa</code>: GPA (out of 4.0)</li>
+<li><code>rank</code>: Rank of undergraduate institute (1: highest
+prestige - 4: lowest)</li>
+</ul>
+<p>Please build the logistic regression model with <code>admit</code> as
+the dependent variable and <code>gre</code>, <code>gpa</code>, and
+<code>rank</code> (reference group=4) as predictors. Interpret the
+coefficients.</p>
+<p><br></p>
+<details>
+<summary>
+<strong>Answer to Question 2:</strong>
+</summary>
+<p><br></p>
+<p><strong>- Intercept (<span
+class="math inline">\(\beta_0\)</span>):</strong></p>
+<p>The odds ratio for the intercept is 0.003921. This means that when
+all predictor variables (GRE, GPA, and rank) are zero, the odds of
+admission are approximately 0.39% (0.003921 * 100%) of being admitted to
+the graduate program.</p>
+<p>The intercept value of -5.541 represents the log odds of admission
+when all predictor variables (GRE, GPA, and rank) are zero. However,
+since it is unlikely for applicants to have zero GRE scores, GPAs, or
+rank, the intercept’s practical interpretation might not be meaningful
+in this context.</p>
+<p><strong>- GRE (<span
+class="math inline">\(\beta_1\)</span>):</strong></p>
+<p>The odds ratio for GRE is 1.002. For every one-unit increase in GRE
+score, the odds of admission increase by approximately 0.2% (1.002 *
+100%).</p>
+<p>This effect is relatively small, suggesting that GRE scores have a
+minor impact on the likelihood of admission.</p>
+<p><strong>-GPA (<span
+class="math inline">\(\beta_2\)</span>):</strong></p>
+<p>The odds ratio for GPA is 2.235.</p>
+<p>A one-unit increase in GPA results in a substantial 123.5% increase
+in the odds of admission. GPA appears to be a significant predictor,
+strongly influencing the chances of being admitted to the graduate
+program.</p>
+<p><strong>- Rank[3] (<span
+class="math inline">\(\beta_3\)</span>):</strong></p>
+<p>The odds ratio for the 3rd highest prestige undergraduate institute
+(Rank[3]) is 1.235. This indicates that applicants from the 3rd highest
+ranked undergraduate institutions have approximately 23.5% higher odds
+of being admitted. However, the confidence interval includes zero,
+indicating that this effect is not statistically significant.</p>
+<p><strong>- Rank[1] (<span
+class="math inline">\(\beta_4\)</span>):</strong></p>
+<p>The odds ratio for the 1st highest prestige undergraduate institute
+(Rank[1]) is 4.718. Applicants from the 1st highest ranked undergraduate
+institutions have approximately 371.8% higher odds of being admitted
+compared to applicants from lower-ranked institutions.</p>
+<p>This suggests that applicants from the most prestigious undergraduate
+institutions have a significantly higher likelihood of being admitted to
+the graduate program.</p>
+<p><strong>- Rank[2] (<span
+class="math inline">\(\beta_5\)</span>):</strong></p>
+<p>The odds ratio for the 2nd highest prestige undergraduate institute
+(Rank[2]) is 2.401.</p>
+<p>The rank of the 2nd highest prestige undergraduate institute is
+associated with a 140.1% increase in the odds of admission. This
+indicates that applicants from the second-highest ranked institutions
+also have a higher chance of being admitted compared to those from
+lower-ranked institutions.</p>
+<p>Overall, a higher GPA is strongly associated with increased odds of
+admission, and applicants from the 1st and 2nd highest prestige
+undergraduate institutions have significantly higher admission
+probabilities. However, the effect of GRE and rank[3] is comparatively
+smaller and may not be statistically significant in the case of
+rank[3].</p>
+</details>
+<p><br><br></p>
+<p><a href="schedule.html">&lt; Go Back</a></p>
+</div>
+
+<br><br>
+<footer>
+  <p class="copyright text-muted" align="center">Copyright &copy; 2024 Cold Spring Harbor Laboratory</p>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

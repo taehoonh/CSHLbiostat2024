@@ -1,0 +1,191 @@
+---
+title: "Schedule"
+---
+
+<br><br><br>
+
+```{r eval = F, echo = F, message = F, warning=FALSE}
+library(dplyr)
+day1_topic <- paste(c("`Overview of Prism`", "`Sensitivity vs. Specificity`", "`Contingency Tables`", "`Fisher's Exact Test`"), collapse = "<br/>")
+day2_topic <- paste(c("`Binomial tests`", "`Chi square tests`", "`P-values`", "`Conﬁdence Intervals`", "`Null Hypothesis testing`"), collapse = "<br/>")
+day3_topic <- paste(c("`Gaussian distributions`", "`QQ plots`", "`t-tests`", "`Comparing two datasets`"), collapse = "<br/>")
+day4_topic <- paste(c("`Correlation`", "`Power analysis`", "`Multiple hypothesis testing`"), collapse = "<br/>")
+day5_topic <- paste(c("`N-hacking revisited`", "`Linear regression`", "`Nonlinear regression`", "`Analysis of variance (ANOVA)`", "`Survival analysis`"), collapse = "<br/>")
+slides <- c('[Link](files/lec1/20e_statistics_lec1.pdf)',
+            '[Link](files/lec2/20e_statistics_lec2.pdf)',
+            '[Link](files/lec3/20e_statistics_lec3.pdf)',
+            '[Link](files/lec4/20e_statistics_lec4.pdf)',
+            '[Link](files/lec5/20e_statistics_lec5.pdf)')
+smry <- data.frame(Date = c("Jul 24 (Mon)", "Jul 25 (Tue)", "Jul 26 (Wed)", "Jul 27 (Thu)", "Jul 28 (Fri)"),
+           Topic = c(day1_topic, day2_topic, day3_topic, day4_topic, day5_topic),
+           Slides = slides) %>%
+    knitr::kable()
+```
+
+
+**Course structure:**
+
+Each lecture consists of two sections, each comprising one lecture and one activity session. After the first half of the lecture, you will engage in activity 1, while activity 2 will be conducted after the second half of the lecture in each class.
+
+<br>
+
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+</style>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Topic</th>
+    <th>Slides</th>
+    <th>Prism</th>
+    <th>Activities</th>
+  </tr>
+  <tr>
+    <td>Jul 8 (Mon)</td>
+    <td>
+      <ul>
+        <li>Overview of Prism</li>
+        <li>Sensitivity vs. Specificity</li>
+        <li>Contingency Tables</li>
+        <li>Fisher's Exact Test</li>
+      </ul>
+    </td>
+    <td><a href="files/lec1/20e_statistics_lec1.pdf">Download</a></td>
+    <td>
+      <ul>
+        <li><a href="files/lec1/lec1_aip_test.pzfx">AIP test</a></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><a href="lec1_activity1.html">Activity 1</a></li>
+        <li><a href="lec1_activity2.html">Activity 2</a></li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Jul 9 (Tue)</td>
+    <td>
+      <ul>
+        <li>Binomial tests</li>
+        <li>Chi square tests</li>
+        <li>P-values</li>
+        <li>Confidence Intervals</li>
+        <li>Null Hypothesis testing</li>
+      </ul>
+    </td>
+    <td><a href="files/lec2/20e_statistics_lec2.pdf">Download</a></td>
+    <td>
+      <ul>
+        <li><a href="files/lec2/arbuthnott.pzfx">Arbuthnott</a></li>
+        <li><a href="files/lec2/flips.pzfx">Flips</a></li>
+        <li><a href="files/lec2/peas.pzfx">Peas</a></li>
+        <li><a href="files/lec2/sex_ratio.pzfx">Sex Ratio</a></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><a href="lec2_activity1.html">Activity 1</a></li>
+        <li><a href="lec2_activity2.html">Activity 2</a></li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Jul 10 (Wed)</td>
+    <td>
+      <ul>
+        <li>Gaussian distributions</li>
+        <li>QQ plots</li>
+        <li>t-tests</li>
+        <li>Comparing two datasets</li>
+      </ul>
+    </td>
+    <td><a href="files/lec3/20e_statistics_lec3.pdf">Download</a></td>
+    <td>
+      <ul>
+        <li><a href="files/lec3/bodytemp.pzfx">Body temperature</a></li>
+        <li><a href="files/lec3/temp_by_sex.pzfx">Temperature by Sex</a></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><a href="lec3_activity1.html">Activity 1</a></li>
+        <li><a href="lec3_activity2.html">Activity 2</a></li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Jul 11 (Thu)</td>
+    <td>
+      <ul>
+        <li>Correlation</li>
+        <li>Power analysis</li>
+        <li>Analysis of variance (ANOVA)</li>
+        <li>Multiple hypothesis testing</li>
+      </ul>
+    </td>
+    <td><a href="files/lec4/20e_statistics_lec4.pdf">Download</a></td>
+    <td>
+      <ul>
+        <li><a href="files/lec4/correlation.pzfx">Correlation</a></li>
+        <li><a href="files/lec4/one-way_anova.pzfx">One-way ANOVA</a></li>
+        <li><a href="files/lec4/two-way_anova.pzfx">Two-way ANOVA</a></li>
+        <li><a href="files/lec4/Kinney2014.pdf">Reading material: Kinney 2014</a></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><a href="lec4_activity1.html">Activity 1</a></li>
+        <li><a href="lec4_activity2.html">Activity 2</a></li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Jul 12 (Fri)</td>
+    <td>
+      <ul>
+        <li>Linear regression</li>
+        <li>Nonlinear regression</li>
+        <li>Survival analysis</li>
+      </ul>
+    </td>
+    <td><a href="files/lec5/20e_statistics_lec5.pdf">Download</a></td>
+    <td>
+      <ul>
+        <li><a href="files/lec5/linear_regression.pzfx">Linear Regression</a></li>
+        <li><a href="files/lec5/nonlinear_regression.pzfx">Non-linear Regression</a></li>
+        <li><a href="files/lec5/survival.pzfx">Survival Analysis</a></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><a href="lec5_activity1.html">Activity 1</a></li>
+        <li><a href="lec5_activity2.html">Activity 2</a></li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<br><br><br>
+
+**Additional Materials to Read**
+
+To enhance your understanding of statistics and explore further applications, you can read the following supplementary materials.
+
+a. [Binomial Distribution and Confidence Interval using R](files/Binomial.pdf)

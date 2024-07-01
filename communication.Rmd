@@ -1,0 +1,37 @@
+---
+title: "Course Communication"
+output:
+  html_document: 
+    toc: true
+    toc_float: true
+---
+
+<br>
+
+### *Email*
+
+During the biostatistics course, we are open to any questions or clarifications you may have. If you would like to communicate with the instructors, Justin Kinney and Taehoon Ha, please reach out to them via email.
+
++ Justin: [jkinney@cshl.edu](mailto:jkinney@cshl.edu)
++ Taehoon: [ha@cshl.edu](mailto:ha@cshl.edu)
+
+They will be happy to assist you with any course-related inquiries or provide further guidance. Please make sure to include a clear subject line and provide a detailed message to ensure a prompt and efficient response. We encourage you to take advantage of this opportunity and reach out to them with your questions or concerns. They are dedicated to supporting your learning experience throughout the course.
+
+<br>
+
+### *Biostatistics Office Hour*
+
+🕑 **When: Thursdays, 2-4 pm**
+
+Welcome to our Cancer-Center-sponsored core resource! Our aim is to support and enhance statistical collaboration in biomedical research at Cold Spring Harbor Laboratory.
+
+👉 **What to expect:**
+Get one-hour of complimentary statistical advice tailored to your research needs. Exclusively available for CSHL Cancer Center faculty, staff, and students.
+
+📧 **How to schedule an appointment:**
+
+<!-- Calendly link widget begin -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
+<a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/cshlbiostat'});return false;">Schedule time with Taehoon</a>
+<!-- Calendly link widget end -->

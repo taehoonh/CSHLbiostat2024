@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Lecture3 Activity2: t-test</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Biostatistics Course 2024</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="schedule.html">Schedule</a>
+</li>
+<li>
+  <a href="communication.html">Communication</a>
+</li>
+<li>
+  <a href="https://github.com/taehoonh/CSHLbiostat2023">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Lecture3 Activity2: t-test</h1>
+
+</div>
+
+
+<p><br></p>
+<div id="question-1-one-sample-t-test" class="section level3">
+<h3>Question 1: One-sample t-test</h3>
+<p>The mean systolic blood pressure of U.S. adults who are 40-59 years
+of age is 123 mm Hg with a standard deviation of 23 mm Hg.</p>
+<p>Suppose we take a random sample of size 12 from the a population of
+patients seen at a rural clinic and measure the SBP. We want to know
+whether our sample indicates that this population is from normal tensive
+individuals or hypertensive individuals. Do we have evidence that the
+data are from a population of patients that are not normal tensive?</p>
+<p>Here is our data: 179.2, 173.1, 168.8, 132, 136.8, 119.2, 141.6,
+129.1, 127.3, 96.9, 195.8, 133.4</p>
+<p>You can download the data <a href="files/lec3/sbp.pzfx">HERE</a>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>What are the null and alternative hypothesis?</p></li>
+<li><p>Please report your test statistic.</p></li>
+<li><p>Please present your conclusion from the hypothesis
+testing.</p></li>
+</ol>
+<p><br></p>
+<details>
+<summary>
+<strong>Answer to Question 1:</strong>
+</summary>
+<p><br></p>
+<p><strong>5 stpes of hypothesis testing</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><p>Decide on the effect that you want to study. Select a suitable
+test statistic to measure the eﬀect.</p></li>
+<li><p>Set up a null hypothesis, which is a simple, tractable model that
+allows you to compute the null distribution.</p></li>
+<li><p>Decide on the rejection region, i.e., if the test is one-sided or
+two-sided. This could in theory be generated in advance based on a known
+sample size.</p></li>
+<li><p>Do the experiment, collect the data, and compute the observed
+value of the test statistic.</p></li>
+<li><p>Make a decision: reject the null hypothesis if the test statistic
+is in the rejection region, i.e., if the p-value is smaller than the
+significance level.</p></li>
+</ol>
+<p><br></p>
+<p><strong>a) Null and alternative hypotheses:</strong></p>
+<p>Null Hypothesis (<span class="math inline">\(H_0\)</span>): The
+actual mean systolic blood pressure is equal to the theoretical mean
+systolic blood pressure (<span class="math inline">\(\mu =
+123.0\)</span>).</p>
+<p>Alternative Hypothesis (<span class="math inline">\(H_1\)</span>):
+The actual mean systolic blood pressure is significantly different from
+the theoretical mean systolic blood pressure (<span
+class="math inline">\(\mu \ne 123.0\)</span>).</p>
+<p><br></p>
+<p><strong>b) Test statistic:</strong></p>
+<p>The t-statistic calculated from the analysis was 2.585.</p>
+<p><br></p>
+<p><strong>c) Conclusion of hypothesis testing:</strong></p>
+<p>It appears as though the patient population at the rural clinic on
+average is not normal tensive (p-value = 0.0254). The average SBP was
+higher than the mean normal tensive level for the general population,
+<span class="math inline">\(\bar{x} = 144.4\)</span>, which indicates
+the population is hypertesive on average (hypertension is a value of 140
+or higher).</p>
+</details>
+<p><br><br></p>
+</div>
+<div id="question-2-two-sample-t-test" class="section level3">
+<h3>Question 2: Two-sample t-test</h3>
+<p>A group of researchers is investigating the effects of a potential
+cancer treatment on the expression levels of a specific gene, “Gene Y.”
+They collected expression data from two groups: a control group and a
+treatment group. The control group consists of 25 mice with cancer that
+did not receive the treatment, while the treatment group consists of 30
+mice with cancer that underwent the treatment. The researchers want to
+determine if there is a significant difference in the mean expression
+levels of Gene Y between the two groups. Using a two-sample t-test,
+analyze the provided dataset and determine if there is evidence of a
+significant difference in gene expression between the control and
+treatment groups. Use a significance level of 0.05.</p>
+<p>You can download the data <a href="files/lec3/geneY.pzfx">HERE</a>.
+In your analysis, please do not assume eqaul SDs.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>What are the null and alternative hypothesis?</p></li>
+<li><p>Please report your test statistic.</p></li>
+<li><p>Please present your conclusion from the hypothesis
+testing.</p></li>
+</ol>
+<p><br></p>
+<details>
+<summary>
+<strong>Answer to Question 2:</strong>
+</summary>
+<p><br></p>
+<p><strong>a) Null and alternative hypotheses:</strong></p>
+<p>Null hypothesis (<span class="math inline">\(H_0\)</span>): The mean
+expression levels of Gene Y are equal between the control group (mice
+with cancer that did not receive the treatment) and the treatment group
+(mice with cancer that underwent the treatment). (i.e., <span
+class="math inline">\(\mu_{Ctrl} = \mu_{Trmt}\)</span>)</p>
+<p>Alternative hypothesis (<span class="math inline">\(H_1\)</span>):
+There is a significant difference in the mean expression levels of Gene
+Y between the control group and the treatment group. (i.e., <span
+class="math inline">\(\mu_{Ctrl} \ne \mu_{Trmt}\)</span>)</p>
+<p><br></p>
+<p><strong>b) Test statistic:</strong></p>
+<p>The t-statistic calculated from the analysis was 3.980.</p>
+<p><br></p>
+<p><strong>c) Conclusion of hypothesis testing:</strong></p>
+<p>The analysis indicates a significant difference in the mean
+expression levels of Gene Y between the control and treatment groups of
+mice with cancer (p=0.002). The treatment group exhibited significantly
+higher expression levels (mean difference: 1.724) compared to the
+control group.</p>
+</details>
+<p><br><br></p>
+</div>
+<div id="question-3-paired-t-test" class="section level3">
+<h3>Question 3: Paired t-test</h3>
+<p>Researchers conducted a clinical trial to investigate the
+effectiveness of a new drug treatment for patients with high blood
+pressure. The study involved 40 patients who received the new drug
+treatment and were followed up after a certain period of time. Systolic
+blood pressure measurements were recorded for each patient both before
+and after the treatment.</p>
+<p>Using the provided dataset, please perform a paired t-test to
+determine if there is a significant difference in systolic blood
+pressure before and after administering the new drug treatment.
+Calculate the t-statistic, degrees of freedom, and p-value, and provide
+a brief interpretation of the results.</p>
+<p>You can download the data <a
+href="files/lec3/bloodpressure.pzfx">HERE</a>. In your analysis, please
+do not assume eqaul SDs.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>What are the null and alternative hypothesis?</p></li>
+<li><p>Please report your test statistic.</p></li>
+<li><p>Please present your conclusion from the hypothesis
+testing.</p></li>
+</ol>
+<p><br></p>
+<details>
+<summary>
+<strong>Answer to Question 3:</strong>
+</summary>
+<p><br></p>
+<p><strong>a) Null and alternative hypotheses:</strong></p>
+<p>Null hypothesis (<span class="math inline">\(H_0\)</span>): There is
+no significant difference in systolic blood pressure before and after
+administering the new drug treatment. (i.e., <span
+class="math inline">\(\mu_{before} = \mu_{after}\)</span>)</p>
+<p>Alternative hypothesis (<span class="math inline">\(H_1\)</span>):
+There is a significant difference in systolic blood pressure before and
+after administering the new drug treatment. (i.e., <span
+class="math inline">\(\mu_{before} \ne \mu_{after}\)</span>)</p>
+<p><br></p>
+<p><strong>b) Test statistic:</strong></p>
+<p>The t-statistic calculated from the analysis was 24.61.</p>
+<p><br></p>
+<p><strong>c) Conclusion of hypothesis testing:</strong></p>
+<p>The result of the paired t-test indicates a significant difference in
+systolic blood pressure before and after administering the new drug
+treatment (p&lt;0.0001). Therefore, we reject the null hypothesis and
+conclude that the treatment has a significant effect on systolic blood
+pressure.</p>
+</details>
+<p><br><br> <a href="schedule.html">&lt; Go Back</a></p>
+</div>
+
+<br><br>
+<footer>
+  <p class="copyright text-muted" align="center">Copyright &copy; 2024 Cold Spring Harbor Laboratory</p>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+---
+title: "Lecture1 Activity1: Sensitivity vs. Specificity"
+output:
+  html_document: 
+    toc: true
+    toc_float: true
+---
+
+<br>
+
+### Question 1
+
+You are conducting a study to evaluate a new diagnostic test for a rare disease. Out of 100 patients with the disease, the test correctly identifies 90 of them as positive (true positive). However, it also incorrectly identifies 15 healthy individuals as positive (false positive) out of 100 health individuals. Calculate the sensitivity and specificity of the test.
+
+<details>
+  <summary><strong>Answer to Question 1:</strong></summary>
+  <pre>
+  Sensitivity = (True Positive / Total with Disease) * 100
+  Specificity = (True Negative / Total without Disease) * 100
+
+  Sensitivity = (90 / 100) * 100 = 90%
+  Specificity = (85 / 100) * 100 = 85%
+</pre>
+
+  <table style="border-collapse: collapse; border: 1px solid black; width: 300px;">
+    <tr style="border: 1px solid black;">
+      <th style="border: 1px solid black; padding: 8px;">&nbsp;</th>
+      <th style="border: 1px solid black; padding: 8px;">Condition True</th>
+      <th style="border: 1px solid black; padding: 8px;">Condition False</th>
+    </tr>
+    <tr style="border: 1px solid black;">
+      <th style="border: 1px solid black; padding: 8px;">Test Positive</th>
+      <td style="border: 1px solid black; padding: 8px;">90</td>
+      <td style="border: 1px solid black; padding: 8px;">15</td>
+    </tr>
+    <tr style="border: 1px solid black;">
+      <th style="border: 1px solid black; padding: 8px;">Test Negative</th>
+      <td style="border: 1px solid black; padding: 8px;">10</td>
+      <td style="border: 1px solid black; padding: 8px;">85</td>
+    </tr>
+  </table>
+</details>
+
+<br><br>
+
+
+### Question 2
+
+A study is conducted to evaluate the accuracy of a new screening test for a certain condition. Out of 200 individuals with the condition, the test correctly identifies 160 of them as positive (true positive). However, it also incorrectly identifies 20 healthy individuals as positive (false positive) out of 200 healthy individuals. Calculate the sensitivity and specificity of the test.
+
+<details>
+  <summary><strong>Answer to Question 2:</strong></summary>
+  <pre>
+  Sensitivity = (True Positive / Total with Disease) * 100
+  Specificity = (True Negative / Total without Disease) * 100
+  
+  Sensitivity = (160 / 200) * 100 = 80%
+  Specificity = (180 / 200) * 100 = 90%
+</pre>
+
+  <table style="border-collapse: collapse; border: 1px solid black; width: 300px;">
+    <tr style="border: 1px solid black;">
+      <th style="border: 1px solid black; padding: 8px;">&nbsp;</th>
+      <th style="border: 1px solid black; padding: 8px;">Condition True</th>
+      <th style="border: 1px solid black; padding: 8px;">Condition False</th>
+    </tr>
+    <tr style="border: 1px solid black;">
+      <th style="border: 1px solid black; padding: 8px;">Test Positive</th>
+      <td style="border: 1px solid black; padding: 8px;">160</td>
+      <td style="border: 1px solid black; padding: 8px;">20</td>
+    </tr>
+    <tr style="border: 1px solid black;">
+      <th style="border: 1px solid black; padding: 8px;">Test Negative</th>
+      <td style="border: 1px solid black; padding: 8px;">40</td>
+      <td style="border: 1px solid black; padding: 8px;">180</td>
+    </tr>
+  </table>
+</details>
+
+<br><br>
+
+<a href="schedule.html">< Go Back</a>

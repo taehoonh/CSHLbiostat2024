@@ -1,0 +1,150 @@
+---
+title: "Lecture3 Activity2: t-test"
+output:
+  html_document: 
+    toc: true
+    toc_float: true
+---
+<br>
+
+### Question 1: One-sample t-test
+
+The mean systolic blood pressure of U.S. adults who are 40-59 years of age is 123 mm Hg with a standard deviation of 23 mm Hg.
+
+Suppose we take a random sample of size 12 from the a population of patients seen at a rural clinic and measure the SBP. We want to know whether our sample indicates that this population is from normal tensive individuals or hypertensive individuals. Do we have evidence that the data are from a population of patients that are not normal tensive?
+
+Here is our data: 179.2, 173.1, 168.8, 132, 136.8, 119.2, 141.6, 129.1, 127.3, 96.9, 195.8, 133.4
+
+You can download the data [HERE](files/lec3/sbp.pzfx).
+
+a) What are the null and alternative hypothesis?
+
+b) Please report your test statistic.
+
+c) Please present your conclusion from the hypothesis testing.
+
+<br>
+
+<details>
+  <summary><strong>Answer to Question 1:</strong></summary>
+  
+<br>
+
+**5 stpes of hypothesis testing**:
+
+1. Decide on the effect that you want to study. Select a suitable test statistic to measure the eﬀect.
+
+2. Set up a null hypothesis, which is a simple, tractable model that allows you to compute the null distribution.
+
+3. Decide on the rejection region, i.e., if the test is one-sided or two-sided. This could in theory be generated in advance based on a known sample size.
+
+4. Do the experiment, collect the data, and compute the observed value of the test statistic.
+
+5. Make a decision: reject the null hypothesis if the test statistic is in the rejection region, i.e., if the p-value is smaller than the significance level.
+
+<br>
+
+**a) Null and alternative hypotheses:**
+
+Null Hypothesis ($H_0$): The actual mean systolic blood pressure is equal to the theoretical mean systolic blood pressure ($\mu = 123.0$).
+
+Alternative Hypothesis ($H_1$): The actual mean systolic blood pressure is significantly different from the theoretical mean systolic blood pressure ($\mu \ne 123.0$).
+
+<br>
+
+**b) Test statistic:**
+
+The t-statistic calculated from the analysis was 2.585.
+
+<br>
+
+**c) Conclusion of hypothesis testing:**
+
+It appears as though the patient population at the rural clinic on average is not normal tensive (p-value = 0.0254). The average SBP was higher than the mean normal tensive level for the general population, $\bar{x} = 144.4$, which indicates the population is hypertesive on average (hypertension is a value of 140 or higher).
+
+
+</details>
+<br><br>
+
+### Question 2: Two-sample t-test
+
+A group of researchers is investigating the effects of a potential cancer treatment on the expression levels of a specific gene, "Gene Y." They collected expression data from two groups: a control group and a treatment group. The control group consists of 25 mice with cancer that did not receive the treatment, while the treatment group consists of 30 mice with cancer that underwent the treatment. The researchers want to determine if there is a significant difference in the mean expression levels of Gene Y between the two groups. Using a two-sample t-test, analyze the provided dataset and determine if there is evidence of a significant difference in gene expression between the control and treatment groups. Use a significance level of 0.05.
+
+You can download the data [HERE](files/lec3/geneY.pzfx). In your analysis, please do not assume eqaul SDs.
+
+a) What are the null and alternative hypothesis?
+
+b) Please report your test statistic.
+
+c) Please present your conclusion from the hypothesis testing.
+
+<br>
+
+<details>
+  <summary><strong>Answer to Question 2:</strong></summary>
+  
+<br>
+
+**a) Null and alternative hypotheses:**
+
+Null hypothesis ($H_0$): The mean expression levels of Gene Y are equal between the control group (mice with cancer that did not receive the treatment) and the treatment group (mice with cancer that underwent the treatment). (i.e., $\mu_{Ctrl} = \mu_{Trmt}$)
+
+Alternative hypothesis ($H_1$): There is a significant difference in the mean expression levels of Gene Y between the control group and the treatment group. (i.e., $\mu_{Ctrl} \ne \mu_{Trmt}$)
+
+<br>
+
+**b) Test statistic:**
+
+The t-statistic calculated from the analysis was 3.980.
+
+<br>
+
+**c) Conclusion of hypothesis testing:**
+
+The analysis indicates a significant difference in the mean expression levels of Gene Y between the control and treatment groups of mice with cancer (p=0.002). The treatment group exhibited significantly higher expression levels (mean difference: 1.724) compared to the control group.
+
+</details>
+<br><br>
+
+### Question 3: Paired t-test
+
+Researchers conducted a clinical trial to investigate the effectiveness of a new drug treatment for patients with high blood pressure. The study involved 40 patients who received the new drug treatment and were followed up after a certain period of time. Systolic blood pressure measurements were recorded for each patient both before and after the treatment.
+
+Using the provided dataset, please perform a paired t-test to determine if there is a significant difference in systolic blood pressure before and after administering the new drug treatment. Calculate the t-statistic, degrees of freedom, and p-value, and provide a brief interpretation of the results.
+
+You can download the data [HERE](files/lec3/bloodpressure.pzfx). In your analysis, please do not assume eqaul SDs.
+
+a) What are the null and alternative hypothesis?
+
+b) Please report your test statistic.
+
+c) Please present your conclusion from the hypothesis testing.
+
+<br>
+
+<details>
+  <summary><strong>Answer to Question 3:</strong></summary>
+  
+<br>
+
+**a) Null and alternative hypotheses:**
+
+Null hypothesis ($H_0$): There is no significant difference in systolic blood pressure before and after administering the new drug treatment. (i.e., $\mu_{before} = \mu_{after}$)
+
+Alternative hypothesis ($H_1$): There is a significant difference in systolic blood pressure before and after administering the new drug treatment. (i.e., $\mu_{before} \ne \mu_{after}$)
+
+<br>
+
+**b) Test statistic:**
+
+The t-statistic calculated from the analysis was 24.61.
+
+<br>
+
+**c) Conclusion of hypothesis testing:**
+
+The result of the paired t-test indicates a significant difference in systolic blood pressure before and after administering the new drug treatment (p<0.0001). Therefore, we reject the null hypothesis and conclude that the treatment has a significant effect on systolic blood pressure.
+
+</details>
+<br><br>
+<a href="schedule.html">< Go Back</a>

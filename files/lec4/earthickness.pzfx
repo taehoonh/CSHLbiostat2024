@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><GraphPadPrismFile PrismXMLVersion="5.00">
+<Created>
+<OriginalVersion CreatedByProgram="GraphPad Prism" CreatedByVersion="10.0.0.131" Login="root" DateTime="2023-07-21T01:29:00-04:00"></OriginalVersion>
+<MostRecentVersion CreatedByProgram="GraphPad Prism" CreatedByVersion="10.0.0.131" Login="root" DateTime="2023-07-21T01:52:21-04:00"></MostRecentVersion>
+</Created>
+<InfoSequence>
+<Ref ID="Info0" Selected="1"></Ref>
+</InfoSequence>
+<Info ID="Info0">
+<Title>Project info 1</Title>
+<Notes></Notes>
+<Constant><Name>Experiment Date</Name><Value>2023-07-21</Value></Constant>
+<Constant><Name>Experiment ID</Name><Value></Value></Constant>
+<Constant><Name>Notebook ID</Name><Value></Value></Constant>
+<Constant><Name>Project</Name><Value></Value></Constant>
+<Constant><Name>Experimenter</Name><Value></Value></Constant>
+<Constant><Name>Protocol</Name><Value></Value></Constant>
+</Info>
+
+<TableSequence Selected="1">
+<Ref ID="Table0" Selected="1"></Ref>
+</TableSequence>
+<Table ID="Table0" XFormat="none" YFormat="replicates" Replicates="1" TableType="TwoWay" EVFormat="AsteriskAfterNumber">
+<Title>EarThickness</Title>
+<YColumn Width="106" Decimals="1" Subcolumns="1">
+<Title>NormalFood</Title>
+<Subcolumn>
+<d>8</d>
+<d>7.5</d>
+<d>9</d>
+<d>6</d>
+<d>6</d>
+<d>6</d>
+<d>5</d>
+<d>4.5</d>
+<d>7</d>
+<d>4</d>
+<d>8</d>
+<d>12</d>
+<d>9</d>
+<d>9</d>
+<d>10.5</d>
+</Subcolumn>
+</YColumn>
+<YColumn Width="103" Decimals="1" Subcolumns="1">
+<Title>LowDose</Title>
+<Subcolumn>
+<d>4</d>
+<d>7</d>
+<d>3.5</d>
+<d>7</d>
+<d>6.5</d>
+<d>4.5</d>
+<d>6</d>
+<d>6.5</d>
+<d>6</d>
+<d>4</d>
+<d>8</d>
+<d>8</d>
+<d>7</d>
+<d>6</d>
+</Subcolumn>
+</YColumn>
+<YColumn Width="103" Decimals="1" Subcolumns="1">
+<Title>MedDose</Title>
+<Subcolumn>
+<d>6</d>
+<d>7.5</d>
+<d>4.5</d>
+<d>4</d>
+<d>7.5</d>
+<d>3</d>
+<d>6</d>
+<d>6</d>
+<d>7.5</d>
+<d>8</d>
+<d>6.5</d>
+<d>4.5</d>
+<d>5.5</d>
+<d>6.5</d>
+<d>3.5</d>
+</Subcolumn>
+</YColumn>
+<YColumn Width="103" Decimals="1" Subcolumns="1">
+<Title>HighDose</Title>
+<Subcolumn>
+<d>6.5</d>
+<d>6.5</d>
+<d>5</d>
+<d>6</d>
+<d>3.5</d>
+<d>5</d>
+<d>3.5</d>
+<d>3.5</d>
+<d>6</d>
+<d>4.5</d>
+<d>5.5</d>
+<d>4</d>
+<d>4.5</d>
+<d>5</d>
+<d>5</d>
+</Subcolumn>
+</YColumn>
+</Table>
+
+<!--Analyses, graphs and layouts as compressed binary. Don&apos;t edit this part of the file.-->
+
+<Template dt:dt="bin.base64" xmlns:dt="urn:schemas-microsoft-com:datatypes">eF7sXc1vG0UUf3baxAktKRUHOBS5FlKR2vgraZwgN7ETJyRVmq4SpyqndGtvHSf2
+rllvmwYJiMQJkCAIOCC4VOoJhKqeufSEKlRuXPgPECckEBJCoszb2dkdr3cdN6mC
+485PGXvmzcyb9zHzZnbX3UrTs7NvLGVHAtvHAGAnsBMIklSEq8E7sEYofwagAb/2
+OPn3SQqSsgKqQ9wFK7DsJpkIbktnALIkhwMqJB0FZ/THHLDsEqqpzOA3moCAgICA
+gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIBAJ6MHpsjnUg/AwhHnu33g
+z+1+hwD0DYaw+NcjwuG7x7126dN/voXQIGN5lP4O7whcesWi7IKv4f6pU/foz/d+
+G9BCRRwK5szyHPj/rO9JEQJTYA6n7qcnb1cr4VuKXi9r6oVIIhqPhBW1oBXLaulC
+ZCU/OzQWmZwYSJ/OXZ7OvynNhGuVct0ISytTC/PT4chQLJat1SpKLJbL58LSwvxy
+Pkx4xGIzi5FwZM0waq/HYpubm1EZW0ULWhUb1mOSrtUU3dhaIMyGSIdo0ShGyDCU
+e4M4hFosF4yJgf70hrI1QVhYzGp6WTWiklxSZjW9KhtR+mUQySWsUvR0DHuQjhYD
+bw5GubChGNGCrsiGZvfpT9cNUl3imq9r12nbdMyq24Vl2VCqWV2XtxymMhYx5wjl
+w6MdxbCvJcpqYjy5mhgdW02Qz3FeQh/+lox1QzaU2Ypc4nniICVFn4inYyxrihyz
+DRljitg0z0E4JaRLc5pefltTDbmypNS7xTc+amFPInRlIpVMx8yMP7eD98RlvawQ
+gQ2yyLrHDx5K8RZMNFrQm+HBu2K5IFeImbrHDS6FsI85/xMduA6ukD2oXOiyeOSh
+lO2EjoxGTOCuWwo+itne6JAlUb95PU/HqcnkVLZaVm9oq8xmXr6QLklSTsK201pR
+WZSrimMq2z6eQ/l4rV23tWTa7DfecbzndtWCk2hBMcwDF3+eaimGl698ncV5i3MX
+70Nb0rwuq/WKub0tm7KYoh9q47ehEideZ3giX9ZKcrOch8r0Pjpw8qjyUKUDzO0e
+qSG6ZovrN+uGUkTiklKwY9Vh8oWbTXsKuri2sHLrKnokSJ2PJhNjqfP8ZsQqz497
+VXIOw5KXIv/7nCCTu8snhVtDF1vmwqGx6PB4fDTp6V+rMh5PxkdGRlOp1PCIV7PU
+2HB0ND4+7D1JRuOetR02S4i55snBJups+7lyVVHxRlN3TJJ2FHRxbWHl1lXU74mG
+qwlGTo03kjt3HjTtgN3i/ybFOCE7dmt35F9RZb+tr0s81EJDF9sWdm5dRdfiod/c
+vW3m3vu6cFq4VXTxZU4U23ujEWu1omcE7IoZ4qccJ2gnXCX7jJSV5q/QJ3uOVywx
+4/FoMt7uDTpjq8b5tclBLqPl3c6yhW01RrOsfqK24sJL6i8oO927JWWCpmPmY9GJ
+gd7tIAAEoc98nk2R1ctyxXmiuyt2uKfJlA8SAvvi05t5B/Dp9zdnAN61c5/bj5uT
+wErYCd9eQ0uojVPCV+o4JeSCpY/MHOIL+LmP5pC+d2kbId6NIyAgICAgcPDAjfkr
+e4//AW4F6UlAQOBgEcyEzPM1QD8cJ58zsp5fI0dyVanXYQDOBehrH/lXP0LwmnkY
+5SjPLNAOaCOKa/AcxKk14QRJ+FrNAaBLu2aldZJKInVswt8e91t5N/AS7TXMkMgd
+vtNnXsohXiDpb/J5LXDSk8ZALzrprGE03AQ+hqsWFbnTy106cxA4ezD9S+oZze/K
+DnkMgtMH0zF4iWvB9MSWGTIhjzfUIt/MWzT/PLBaJjdfi8GC1jJ5vfsyKdy1g9tp
+WjDBWwVfAIt5pKHFUWe31RD9ZLUBLOJdhMqsphXJkuu1K/8wFyCKhd+YEJ+ABHgH
+wHmrLDMkG8TLsMzoftix1B/MUKUYj70phbUL2mZOqyv70ghpT0sjNqn3rtElpdhR
+GrH9bG8aYYCYK5fW9q0Suz20P5U+sBz0pX2kPBbGOMZWNqPSaEDBlOIVRC4sz25M
+YT5kHRJCRPHT5FvStXWlYITxN3PhRNj85wvajXBBU+uGrBp+B4e7HEsBMG2EuEts
+23xwwITGuwd0U3JvVCJ1VnqSgwO/CtC/98gy9KIxsBCBbcx271G6c3DAEqtlS5yB
+HRyQ7hVo2F1nPDjwaHFwIOM3B51QJrtDaVMnIkDH8gpiGAwppk/QvichZ+V6YcaM
+mlkpa4Ycwgva5GXJQXhZOcLL/M5acgWeolyBpyLXmKVjP6DtG8OqTxBFMIc/60A7
+OFdfAGe38ayNu6tJfMDoUWvXC8IGFKEKL8NncI5VwsMpO9sARn+YBdiePJupwotA
+l3Ifa/Lgx4s3vv8lULUmCYBqhu+Z2zVFx58hGeGcbCigmeNfvFkZSsbJX3IYaA+U
+UjVPw1yP+Rxpb8pPG+EMUU0Gi5qhXNe0jaYmOD1UUzJrCjVWY1Lp1b09jKI3tsH/
+cUE14xdhYWgFrdJYj0cclRIs+ofwKtjxZBLTT48eTdBiI5wIMZbp2c7wVXtEIPMf
+AAAA//8DAGMiR0g=</Template></GraphPadPrismFile>

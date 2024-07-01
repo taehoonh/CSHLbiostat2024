@@ -1,0 +1,82 @@
+---
+title: "Lecture1 Activity2: Fisher's Exact Test"
+output:
+  html_document: 
+    toc: true
+    toc_float: true
+---
+<br>
+
+### Question 1
+
+A preliminary study suggests a beneﬁt from green tea for those at risk of prostate cancer. The study involved 30 men with PIN (Prostatic intraepithelial neoplasia, it's a precursor lesions to prostatic carcinoma) lesions, some of which turn into prostate cancer. Half the men were randomly assigned to 600 mg a day of a green tea extract while the other half were given a placebo. The study was double-blind, and the results after one year are shown in the table below. Please calculate the expected count, and draw a conclusion. Does the sample provide evidence that taking green tea extract reduces the risk of developing prostate cancer?
+
+|           | Cancer | No Cancer |
+|-----------|-------:|----------:|
+| Green Tea |      1 |        14 |
+| Placebo   |      4 |        11 |
+
+<br>
+
+<details>
+  <summary><strong>Answer to Question 1:</strong></summary>
+  
+<br>
+
+**1. Determine whether there is an association between green tea and prostate cancer**
+
+**2. Compute the expected values and see a problem**
+
+\[
+\begin{align*}
+E_{11} &= \frac{5 \times 15}{30} = \frac{75}{30} = 2.5 \\
+E_{12} &= \frac{15 \times 25}{30} = \frac{375}{30} = 12.5 \\
+E_{21} &= \frac{5 \times 15}{30} = \frac{75}{30} = 2.5 \\
+E_{22} &= \frac{15 \times 25}{30} = \frac{375}{30} = 12.5 \\
+\end{align*}
+\]
+
+**3. Determine which test to use for your hypothesis testing.**
+
+A rule of thumb to use Fisher's exact test is when analyzing contingency tables with small sample sizes or when one or more expected cell counts are less or equal to 5.
+
+**4. Draw a conclusion**
+
++ p-value: 0.3295
+
+Based on the Fisher's exact test, the p-value of 0.3295 indicates that there is no significant evidence to suggest that there is an association between  taking green tea extract and the risk of developing prostate cancer.
+
+</details>
+<br><br>
+
+### Question 2
+
+A study was conducted to investigate the effectiveness of two different medications (Medication A and Medication B) in treating a rare disease. The data collected from 50 patients are summarized in the contingency table below:
+
+|             | Medication A | Medication B |
+|-------------|-------------|-------------|
+| Improved    | 1           | 12          |
+| Not Improved| 7           | 30          |
+
+<br>
+
+<details>
+  <summary><strong>Answer to Question 2:</strong></summary>
+  
+<br>
+
+To perform a Fisher's exact test using Prism GraphPad:
+
+1. Enter the data into the contingency table.
+2. Select "Analyze" > "Contingency table analysis."
+3. In the "Test" section, choose "Fisher's exact test."
+4. Click "OK" to perform the analysis.
+5. The results of the Fisher's exact test are as follows:
+
++ P value: 0.6622 (significant at the alpha level of 0.05)
++ Conclusion: The Fisher's exact test (p-value = 0.6622) does not provide significant evidence to suggest a difference in effectiveness between Medication A and Medication B in treating the rare disease. Therefore, there is no conclusive evidence to favor either medication over the other based on the given data.
+
+</details>
+<br><br>
+
+<a href="schedule.html">< Go Back</a>
