@@ -53,8 +53,18 @@ have access to a computer and install Prism Graphpad software before attending t
 | July 11, 2024 (Thursday) | 10AM - 12PM     | Hawkins                        |
 | July 12, 2024 (Friday)   | 2PM - 4PM       | Wendt Conference Room #5513    |
 
+<br>
 
+**CHECK-IN (ATTENDANCE):**
 
+To check in for the Biostatistics Course 2024, please click on the following link: [https://bit.ly/cshlbiostat2024checkin](https://bit.ly/cshlbiostat2024checkin)
 
+Enter your name, lab, and date, then click submit. For any assistance, please contact the course coordinator.
 
+<br>
+<p align="center">
+QR Code:
+<br>
+<img src="images/bit.ly_cshlbiostat2024.png" alt="logo" style="width:20%; border:0px solid; margin-right: 20px" align="center">
+</p>
 <br>
