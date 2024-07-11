@@ -189,3 +189,7 @@ Each lecture consists of two sections, each comprising one lecture and one activ
 To enhance your understanding of statistics and explore further applications, you can read the following supplementary materials.
 
 a. [Binomial Distribution and Confidence Interval using R](files/Binomial.pdf)
+
+b. [Step-by-Step Guide of Mann Whitney U test (Wilcoxon rank-sum test)](wilcoxon_ranksum.html)
+
+c. [Manual Calculation of Spearman's Rho Correlation](spearman_correlation.html)

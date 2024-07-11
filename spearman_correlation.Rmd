@@ -1,0 +1,144 @@
+---
+title: "Spearman's Rho Correlation" 
+output:
+  html_document: 
+    toc: true
+    toc_float: true
+---
+<br>
+
+
+### Overview
+
+Spearman's rank correlation is a non-parametric measure of the strength and direction of association between two ranked variables. Unlike Pearson's correlation, Spearman's does not assume that the data is normally distributed. Instead, it calculates the correlation based on the ranks of the data values.
+
+Let's go through the step-by-step process to calculate Spearman's rho using our given data. Here are the original values for \( x \) (fatty acids) and \( y \) (sensitivity):
+
+\[
+\begin{array}{|c|c|}
+\hline
+x & y \\
+\hline
+17.9 & 250 \\
+18.3 & 220 \\
+18.3 & 145 \\
+18.4 & 115 \\
+18.4 & 230 \\
+20.2 & 200 \\
+20.3 & 330 \\
+21.8 & 400 \\
+21.9 & 370 \\
+22.1 & 260 \\
+23.1 & 270 \\
+24.2 & 530 \\
+24.4 & 375 \\
+\hline
+\end{array}
+\]
+
+<br>
+
+### Step 1
+
+**Rank the data:** Assign ranks to the \( x \) and \( y \) values separately. In case of ties, assign the average rank to the tied values.
+
+\[
+\begin{array}{|c|c|c|c|}
+\hline
+x & \text{Rank}(x) & y & \text{Rank}(y) \\
+\hline
+17.9 & 1 & 250 & 6 \\
+18.3 & 2.5 & 220 & 4 \\
+18.3 & 2.5 & 145 & 2 \\
+18.4 & 4.5 & 115 & 1 \\
+18.4 & 4.5 & 230 & 5 \\
+20.2 & 6 & 200 & 3 \\
+20.3 & 7 & 330 & 9 \\
+21.8 & 8 & 400 & 12 \\
+21.9 & 9 & 370 & 10 \\
+22.1 & 10 & 260 & 7 \\
+23.1 & 11 & 270 & 8 \\
+24.2 & 12 & 530 & 13 \\
+24.4 & 13 & 375 & 11 \\
+\hline
+\end{array}
+\]
+
+<br>
+
+### Step 2
+
+**Calculate the differences in ranks (\( d \)) and the squares of the differences (\( d^2 \)):**
+
+\[
+\begin{array}{|c|c|c|c|}
+\hline
+\text{Rank}(x) & \text{Rank}(y) & d & d^2 \\
+\hline
+1 & 6 & -5 & 25 \\
+2.5 & 4 & -1.5 & 2.25 \\
+2.5 & 2 & 0.5 & 0.25 \\
+4.5 & 1 & 3.5 & 12.25 \\
+4.5 & 5 & -0.5 & 0.25 \\
+6 & 3 & 3 & 9 \\
+7 & 9 & -2 & 4 \\
+8 & 12 & -4 & 16 \\
+9 & 10 & -1 & 1 \\
+10 & 7 & 3 & 9 \\
+11 & 8 & 3 & 9 \\
+12 & 13 & -1 & 1 \\
+13 & 11 & 2 & 4 \\
+\hline
+\end{array}
+\]
+
+<br>
+
+### Step 3
+
+**Sum the squared differences (\( \sum d^2 \)):**
+
+\[
+\sum d^2 = 25 + 2.25 + 0.25 + 12.25 + 0.25 + 9 + 4 + 16 + 1 + 9 + 9 + 1 + 4 = 93.25
+\]
+
+<br>
+
+### Step 4
+
+**Calculate Spearman's rho using the formula:**
+
+\[
+\rho = 1 - \frac{6 \sum d^2}{n(n^2 - 1)}
+\]
+
+where \( n \) is the number of data points.
+
+Here, \( n = 13 \).
+
+\[
+\rho = 1 - \frac{6 \times 93.25}{13 \times (13^2 - 1)}
+\]
+
+\[
+\rho = 1 - \frac{559.5}{13 \times 168}
+\]
+
+\[
+\rho = 1 - \frac{559.5}{2184}
+\]
+
+\[
+\rho = 1 - 0.2562
+\]
+
+\[
+\rho = 0.7438
+\]
+
+So, Spearman's rank correlation coefficient for this data is approximately 0.7438, indicating a strong positive relationship between insulin sensitivity and fatty acid composition.
+
+<br>
+
+<a href="schedule.html">< Go Back</a>
+

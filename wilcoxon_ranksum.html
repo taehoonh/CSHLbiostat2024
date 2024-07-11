@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Mann Whitney U test (Wilcoxon Rank-Sum test)</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Biostatistics Course 2024</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="schedule.html">Schedule</a>
+</li>
+<li>
+  <a href="communication.html">Communication</a>
+</li>
+<li>
+  <a href="https://github.com/taehoonh/CSHLbiostat2023">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Mann Whitney U test (Wilcoxon Rank-Sum
+test)</h1>
+
+</div>
+
+
+<p><br></p>
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<p>The Mann-Whitney U test, also known as the Wilcoxon rank-sum test, is
+a non-parametric test used to determine whether there is a significant
+difference between the distributions of two independent samples. Unlike
+the t-test, it does not assume normal distribution of the data.</p>
+<p><br></p>
+</div>
+<div id="what-does-non-parametric-mean" class="section level3">
+<h3>What Does ‘Non-Parametric’ Mean?</h3>
+<p>Non-parametric tests, like the Mann-Whitney U test, do not assume a
+specific distribution for the data. This contrasts with parametric
+tests, such as the t-test, which assume the data follows a normal
+distribution. Non-parametric tests are more flexible and can be used
+when the assumptions of parametric tests are not met, particularly when
+dealing with skewed distributions or ordinal data.</p>
+<p><br></p>
+</div>
+<div id="why-is-the-t-test-parametric" class="section level3">
+<h3>Why is the t-test Parametric?</h3>
+<p>The t-test is considered a parametric test because it relies on
+assumptions about the parameters of the population distribution from
+which the sample is drawn. Specifically, the t-test assumes that:</p>
+<ol style="list-style-type: decimal">
+<li>The data are drawn from populations that follow a normal
+distribution.</li>
+<li>The variances of the two populations are equal (in the case of a
+two-sample t-test).</li>
+<li>The data are measured on an interval or ratio scale.</li>
+</ol>
+<p>These assumptions allow the t-test to make inferences about the
+population mean and to use the t-distribution to calculate the
+probability of observing the data given the null hypothesis.</p>
+<p><br></p>
+</div>
+<div id="why-is-the-mann-whitney-u-test-non-parametric"
+class="section level3">
+<h3>Why is the Mann-Whitney U Test Non-Parametric?</h3>
+<p>The Mann-Whitney U test is considered non-parametric because it does
+not make any assumptions about the underlying population distribution.
+Instead, it evaluates whether one sample tends to have larger values
+than the other by ranking all the data points and comparing the sums of
+these ranks between the two groups. This rank-based method makes the
+test robust to non-normal distributions and outliers, allowing it to be
+used in a wider range of situations.</p>
+<p><br></p>
+<p>Let’s go through the step-by-step process to perform a Mann-Whitney U
+test using the following data for two groups (e.g., Group A and Group
+B):</p>
+<p><span class="math display">\[
+\begin{array}{|c|c|}
+\hline
+\text{Group A} &amp; \text{Group B} \\
+\hline
+1.1 &amp; 2.5 \\
+2.3 &amp; 3.1 \\
+2.5 &amp; 3.6 \\
+3.8 &amp; 4.0 \\
+4.1 &amp; 4.2 \\
+\hline
+\end{array}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="step-1-combine-and-rank-the-data" class="section level3">
+<h3>Step 1: Combine and Rank the Data</h3>
+<p>Combine the data from both groups and rank them from the smallest to
+the largest. If there are tied ranks, assign the average rank to the
+tied values.</p>
+<p><span class="math display">\[
+\begin{array}{|c|c|c|}
+\hline
+\text{Value} &amp; \text{Group} &amp; \text{Rank} \\
+\hline
+1.1 &amp; A &amp; 1 \\
+2.3 &amp; A &amp; 2 \\
+2.5 &amp; A &amp; 3 \\
+2.5 &amp; B &amp; 3 \\
+3.1 &amp; B &amp; 5 \\
+3.6 &amp; B &amp; 6 \\
+3.8 &amp; A &amp; 7 \\
+4.0 &amp; B &amp; 8 \\
+4.1 &amp; A &amp; 9 \\
+4.2 &amp; B &amp; 10 \\
+\hline
+\end{array}
+\]</span></p>
+<p><br></p>
+</div>
+<div id="step-2-sum-the-ranks-for-each-group" class="section level3">
+<h3>Step 2: Sum the Ranks for Each Group</h3>
+<p>Calculate the sum of the ranks for each group:</p>
+<p><span class="math display">\[
+R_A = 1 + 2 + 3 + 7 + 9 = 22
+\]</span></p>
+<p><span class="math display">\[
+R_B = 3 + 5 + 6 + 8 + 10 = 32
+\]</span></p>
+<p><br></p>
+</div>
+<div id="step-3-calculate-the-u-statistics" class="section level3">
+<h3>Step 3: Calculate the U Statistics</h3>
+<p>The U statistic for each group is calculated using the following
+formulas:</p>
+<p><span class="math display">\[
+U_A = n_A n_B + \frac{n_A (n_A + 1)}{2} - R_A
+\]</span></p>
+<p><span class="math display">\[
+U_B = n_A n_B + \frac{n_B (n_B + 1)}{2} - R_B
+\]</span></p>
+<p>where <span class="math inline">\(n_A\)</span> and <span
+class="math inline">\(n_B\)</span> are the sample sizes of Group A and
+Group B, respectively.</p>
+<p><span class="math display">\[
+U_A = 5 \times 5 + \frac{5 \times 6}{2} - 22 = 25 + 15 - 22 = 18
+\]</span></p>
+<p><span class="math display">\[
+U_B = 5 \times 5 + \frac{5 \times 6}{2} - 32 = 25 + 15 - 32 = 8
+\]</span></p>
+<p><br></p>
+</div>
+<div id="step-4-determine-the-smaller-u-value" class="section level3">
+<h3>Step 4: Determine the Smaller U Value</h3>
+<p>The smaller U value is used for the test statistic:</p>
+<p><span class="math display">\[
+U = \min(U_A, U_B) = \min(18, 8) = 8
+\]</span></p>
+<p><br></p>
+</div>
+<div id="step-5-calculate-the-mean-and-standard-deviation-of-u"
+class="section level3">
+<h3>Step 5: Calculate the Mean and Standard Deviation of U</h3>
+<p>For large samples, the distribution of U can be approximated by a
+normal distribution with the following mean (<span
+class="math inline">\(\mu_U\)</span>) and standard deviation (<span
+class="math inline">\(\sigma_U\)</span>):</p>
+<p><span class="math display">\[
+\mu_U = \frac{n_A n_B}{2}
+\]</span></p>
+<p><span class="math display">\[
+\sigma_U = \sqrt{\frac{n_A n_B (n_A + n_B + 1)}{12}}
+\]</span></p>
+<p><span class="math display">\[
+\mu_U = \frac{5 \times 5}{2} = 12.5
+\]</span></p>
+<p><span class="math display">\[
+\sigma_U = \sqrt{\frac{5 \times 5 \times 11}{12}} = \sqrt{22.92} = 4.79
+\]</span></p>
+<p><br></p>
+</div>
+<div id="step-6-calculate-the-z-score" class="section level3">
+<h3>Step 6: Calculate the Z-Score</h3>
+<p>Convert the U value to a Z-score:</p>
+<p><span class="math display">\[
+Z = \frac{U - \mu_U}{\sigma_U} = \frac{8 - 12.5}{4.79} = -0.94
+\]</span></p>
+<p><br></p>
+</div>
+<div id="step-7-determine-the-p-value" class="section level3">
+<h3>Step 7: Determine the P-Value</h3>
+<p>Use the Z-score to find the corresponding P-value from the standard
+normal distribution. For a two-tailed test, double the one-tailed
+P-value.</p>
+<p>For <span class="math inline">\(Z = -0.94\)</span>, the P-value is
+approximately 0.1736 (one-tailed), so the two-tailed P-value is <span
+class="math inline">\(0.1736 \times 2 = 0.3472\)</span>.</p>
+<p><br></p>
+</div>
+<div id="step-8-conclusion" class="section level3">
+<h3>Step 8: Conclusion</h3>
+<p>Compare the P-value to the significance level (e.g., <span
+class="math inline">\(\alpha = 0.05\)</span>). If the P-value is less
+than <span class="math inline">\(\alpha\)</span>, reject the null
+hypothesis.</p>
+<p>In this example, <span class="math inline">\(P = 0.3472\)</span> is
+greater than 0.05, so we fail to reject the null hypothesis. There is no
+significant difference between the distributions of Group A and Group
+B.</p>
+<p><br></p>
+<p><a href="schedule.html">&lt; Go Back</a></p>
+</div>
+
+<br><br>
+<footer>
+  <p class="copyright text-muted" align="center">Copyright &copy; 2024 Cold Spring Harbor Laboratory</p>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
