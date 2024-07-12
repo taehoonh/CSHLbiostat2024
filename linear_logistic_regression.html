@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Multiple Linear Regression &amp; Logistic Regression</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Biostatistics Course 2024</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="schedule.html">Schedule</a>
+</li>
+<li>
+  <a href="communication.html">Communication</a>
+</li>
+<li>
+  <a href="https://github.com/taehoonh/CSHLbiostat2023">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Multiple Linear Regression &amp; Logistic
+Regression</h1>
+
+</div>
+
+
+<p><br></p>
+<div id="multiple-linear-regression" class="section level3">
+<h3>Multiple Linear Regression</h3>
+<p><strong>Example: Predicting Blood Pressure</strong></p>
+<p>In a study to predict systolic blood pressure (SBP) using age, body
+mass index (BMI), and smoking status (smoker or non-smoker) as
+predictors, we can use multiple linear regression. The model can be
+represented as:</p>
+<p><span class="math display">\[
+\text{SBP} = \beta_0 + \beta_1 \text{Age} + \beta_2 \text{BMI} + \beta_3
+\text{SmokingStatus} + \epsilon
+\]</span></p>
+<p>Here, SBP is the dependent variable, Age and BMI are numerical
+independent variables, and SmokingStatus is a categorical independent
+variable.</p>
+<p><strong>Steps for Interpretation:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Fit the Model:</strong> Use statistical software to fit
+the model and obtain the regression coefficients.</p></li>
+<li><p><strong>Check the Coefficients:</strong> <span
+class="math display">\[
+\text{SBP} = 90 + 0.5 \times \text{Age} + 1.2 \times \text{BMI} + 15
+\times \text{SmokingStatus} + \epsilon
+\]</span></p>
+<ul>
+<li><strong>Intercept (<span
+class="math inline">\(\beta_0\)</span>):</strong> The intercept of 90
+indicates the expected SBP when Age, BMI, and SmokingStatus are
+zero.</li>
+<li><strong>Age (<span class="math inline">\(\beta_1\)</span>):</strong>
+A coefficient of 0.5 means that for each additional year of age, the SBP
+increases by 0.5 mmHg, holding other variables constant.</li>
+<li><strong>BMI (<span class="math inline">\(\beta_2\)</span>):</strong>
+A coefficient of 1.2 means that for each unit increase in BMI, the SBP
+increases by 1.2 mmHg, holding other variables constant.</li>
+<li><strong>SmokingStatus (<span
+class="math inline">\(\beta_3\)</span>):</strong> The coefficient of 15
+indicates that smokers have, on average, 15 mmHg higher SBP than
+non-smokers, holding other variables constant.</li>
+</ul></li>
+<li><p><strong>Assess Model Fit:</strong></p>
+<ul>
+<li><strong>R-squared:</strong> Indicates the proportion of the variance
+in the dependent variable that is predictable from the independent
+variables.</li>
+<li><strong>Residual Plots:</strong> Check for homoscedasticity and
+normality of residuals.</li>
+</ul></li>
+<li><p><strong>Check Significance:</strong></p>
+<ul>
+<li><strong>p-values:</strong> Determine if the coefficients are
+significantly different from zero.</li>
+<li><strong>Confidence Intervals:</strong> Provide a range of values for
+the coefficients.</li>
+</ul></li>
+</ol>
+<p><br><br></p>
+</div>
+<div id="logistic-regression" class="section level3">
+<h3>Logistic Regression</h3>
+<p><strong>Example: Predicting the Presence of a Disease</strong></p>
+<p>Suppose we are predicting the presence of a certain disease (Yes/No)
+using age, BMI, and family history (Yes/No) as predictors. The logistic
+regression model can be written as:</p>
+<p><span class="math display">\[
+\text{logit}(P(Y = 1)) = \log\left(\frac{P(Y=1)}{1-P(Y=1)}\right) =
+\beta_0 + \beta_1 \text{Age} + \beta_2 \text{BMI} + \beta_3
+\text{FamilyHistory}
+\]</span></p>
+<p>Here, <span class="math inline">\(Y\)</span> is the dependent binary
+variable, Age and BMI are numerical independent variables, and
+FamilyHistory is a categorical independent variable.</p>
+<p><strong>Steps for Interpretation:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Fit the Model:</strong> Use statistical software to fit
+the model and obtain the regression coefficients.</p></li>
+<li><p><strong>Check the Coefficients:</strong> <span
+class="math display">\[
+\text{logit}(P(Y = 1)) = -2 + 0.03 \times \text{Age} + 0.1 \times
+\text{BMI} + 0.8 \times \text{FamilyHistory}
+\]</span></p>
+<ul>
+<li><strong>Intercept (<span
+class="math inline">\(\beta_0\)</span>):</strong> The intercept of -2 is
+the log-odds of having the disease when Age, BMI, and FamilyHistory are
+zero.</li>
+<li><strong>Age (<span class="math inline">\(\beta_1\)</span>):</strong>
+A coefficient of 0.03 means that each additional year of age increases
+the log-odds of having the disease by 0.03, holding other variables
+constant.</li>
+<li><strong>BMI (<span class="math inline">\(\beta_2\)</span>):</strong>
+A coefficient of 0.1 means that each unit increase in BMI increases the
+log-odds of having the disease by 0.1, holding other variables
+constant.</li>
+<li><strong>FamilyHistory (<span
+class="math inline">\(\beta_3\)</span>):</strong> The coefficient of 0.8
+indicates that individuals with a family history of the disease have
+higher log-odds of having the disease by 0.8 compared to those without,
+holding other variables constant.</li>
+</ul></li>
+<li><p><strong>Convert Log-Odds to Odds Ratios:</strong> <span
+class="math display">\[
+\text{Odds Ratio (Age)} = e^{0.03} \approx 1.03
+\]</span> <span class="math display">\[
+\text{Odds Ratio (BMI)} = e^{0.1} \approx 1.11
+\]</span> <span class="math display">\[
+\text{Odds Ratio (FamilyHistory)} = e^{0.8} \approx 2.23
+\]</span></p>
+<ul>
+<li><strong>Age:</strong> Each additional year of age increases the odds
+of having the disease by 3%.</li>
+<li><strong>BMI:</strong> Each unit increase in BMI increases the odds
+of having the disease by 11%.</li>
+<li><strong>FamilyHistory:</strong> Having a family history of the
+disease increases the odds of having the disease by 123%.</li>
+</ul></li>
+<li><p><strong>Assess Model Fit:</strong></p>
+<ul>
+<li><strong>Likelihood Ratio Test:</strong> Compare the fitted model to
+a null model.</li>
+<li><strong>Hosmer-Lemeshow Test:</strong> Assess goodness of fit.</li>
+<li><strong>ROC Curve:</strong> Evaluate the model’s discriminative
+ability.</li>
+</ul></li>
+<li><p><strong>Check Significance:</strong></p>
+<ul>
+<li><strong>p-values:</strong> Determine if the coefficients are
+significantly different from zero.</li>
+<li><strong>Confidence Intervals:</strong> Provide a range of values for
+the coefficients.</li>
+</ul></li>
+</ol>
+<p><br><br></p>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<p>In both multiple linear regression and logistic regression, it’s
+crucial to interpret the coefficients, assess model fit, and check the
+significance of predictors. The interpretation of numerical and
+categorical variables is similar across both types of regression, but
+logistic regression involves an additional step of converting log-odds
+to odds ratios for better understanding. <br></p>
+<p><br></p>
+<p><a href="schedule.html">&lt; Go Back</a></p>
+</div>
+
+<br><br>
+<footer>
+  <p class="copyright text-muted" align="center">Copyright &copy; 2024 Cold Spring Harbor Laboratory</p>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

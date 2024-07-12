@@ -193,3 +193,5 @@ a. [Binomial Distribution and Confidence Interval using R](files/Binomial.pdf)
 b. [Step-by-Step Guide of Mann Whitney U test (Wilcoxon rank-sum test)](wilcoxon_ranksum.html)
 
 c. [Manual Calculation of Spearman's Rho Correlation](spearman_correlation.html)
+
+d. [Multiple Linear Regression & Logistic Regression](linear_logistic_regression.html)

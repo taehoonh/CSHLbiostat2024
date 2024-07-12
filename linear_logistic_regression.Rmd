@@ -1,0 +1,108 @@
+---
+title: "Multiple Linear Regression & Logistic Regression" 
+output:
+  html_document: 
+    toc: true
+    toc_float: true
+---
+<br>
+
+
+### Multiple Linear Regression
+
+**Example: Predicting Blood Pressure**
+
+In a study to predict systolic blood pressure (SBP) using age, body mass index (BMI), and smoking status (smoker or non-smoker) as predictors, we can use multiple linear regression. The model can be represented as:
+
+\[
+\text{SBP} = \beta_0 + \beta_1 \text{Age} + \beta_2 \text{BMI} + \beta_3 \text{SmokingStatus} + \epsilon
+\]
+
+Here, SBP is the dependent variable, Age and BMI are numerical independent variables, and SmokingStatus is a categorical independent variable.
+
+**Steps for Interpretation:**
+
+1. **Fit the Model:**
+   Use statistical software to fit the model and obtain the regression coefficients.
+
+2. **Check the Coefficients:**
+   \[
+   \text{SBP} = 90 + 0.5 \times \text{Age} + 1.2 \times \text{BMI} + 15 \times \text{SmokingStatus} + \epsilon
+   \]
+   
+   - **Intercept (\(\beta_0\)):** The intercept of 90 indicates the expected SBP when Age, BMI, and SmokingStatus are zero.
+   - **Age (\(\beta_1\)):** A coefficient of 0.5 means that for each additional year of age, the SBP increases by 0.5 mmHg, holding other variables constant.
+   - **BMI (\(\beta_2\)):** A coefficient of 1.2 means that for each unit increase in BMI, the SBP increases by 1.2 mmHg, holding other variables constant.
+   - **SmokingStatus (\(\beta_3\)):** The coefficient of 15 indicates that smokers have, on average, 15 mmHg higher SBP than non-smokers, holding other variables constant.
+
+3. **Assess Model Fit:**
+   - **R-squared:** Indicates the proportion of the variance in the dependent variable that is predictable from the independent variables.
+   - **Residual Plots:** Check for homoscedasticity and normality of residuals.
+
+4. **Check Significance:**
+   - **p-values:** Determine if the coefficients are significantly different from zero.
+   - **Confidence Intervals:** Provide a range of values for the coefficients.
+
+<br><br>
+
+### Logistic Regression
+
+**Example: Predicting the Presence of a Disease**
+
+Suppose we are predicting the presence of a certain disease (Yes/No) using age, BMI, and family history (Yes/No) as predictors. The logistic regression model can be written as:
+
+\[
+\text{logit}(P(Y = 1)) = \log\left(\frac{P(Y=1)}{1-P(Y=1)}\right) = \beta_0 + \beta_1 \text{Age} + \beta_2 \text{BMI} + \beta_3 \text{FamilyHistory}
+\]
+
+Here, \(Y\) is the dependent binary variable, Age and BMI are numerical independent variables, and FamilyHistory is a categorical independent variable.
+
+**Steps for Interpretation:**
+
+1. **Fit the Model:**
+   Use statistical software to fit the model and obtain the regression coefficients.
+
+2. **Check the Coefficients:**
+   \[
+   \text{logit}(P(Y = 1)) = -2 + 0.03 \times \text{Age} + 0.1 \times \text{BMI} + 0.8 \times \text{FamilyHistory}
+   \]
+   
+   - **Intercept (\(\beta_0\)):** The intercept of -2 is the log-odds of having the disease when Age, BMI, and FamilyHistory are zero.
+   - **Age (\(\beta_1\)):** A coefficient of 0.03 means that each additional year of age increases the log-odds of having the disease by 0.03, holding other variables constant.
+   - **BMI (\(\beta_2\)):** A coefficient of 0.1 means that each unit increase in BMI increases the log-odds of having the disease by 0.1, holding other variables constant.
+   - **FamilyHistory (\(\beta_3\)):** The coefficient of 0.8 indicates that individuals with a family history of the disease have higher log-odds of having the disease by 0.8 compared to those without, holding other variables constant.
+
+3. **Convert Log-Odds to Odds Ratios:**
+   \[
+   \text{Odds Ratio (Age)} = e^{0.03} \approx 1.03
+   \]
+   \[
+   \text{Odds Ratio (BMI)} = e^{0.1} \approx 1.11
+   \]
+   \[
+   \text{Odds Ratio (FamilyHistory)} = e^{0.8} \approx 2.23
+   \]
+   - **Age:** Each additional year of age increases the odds of having the disease by 3%.
+   - **BMI:** Each unit increase in BMI increases the odds of having the disease by 11%.
+   - **FamilyHistory:** Having a family history of the disease increases the odds of having the disease by 123%.
+
+4. **Assess Model Fit:**
+   - **Likelihood Ratio Test:** Compare the fitted model to a null model.
+   - **Hosmer-Lemeshow Test:** Assess goodness of fit.
+   - **ROC Curve:** Evaluate the model's discriminative ability.
+
+5. **Check Significance:**
+   - **p-values:** Determine if the coefficients are significantly different from zero.
+   - **Confidence Intervals:** Provide a range of values for the coefficients.
+
+<br><br>
+
+### Summary
+
+In both multiple linear regression and logistic regression, it's crucial to interpret the coefficients, assess model fit, and check the significance of predictors. The interpretation of numerical and categorical variables is similar across both types of regression, but logistic regression involves an additional step of converting log-odds to odds ratios for better understanding.
+<br>
+
+<br>
+
+<a href="schedule.html">< Go Back</a>
+
